@@ -29,7 +29,7 @@ $icones_generos = [
 require_once 'includes/header.php';
 ?>
 
-<!-- ===== BANNER PRINCIPAL ===== -->
+<!-- ==== BANNER PRINCIPAL ==== -->
 <section class="banner">
     <div class="container">
         <div class="banner-conteudo">
