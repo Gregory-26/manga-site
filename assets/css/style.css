@@ -1,0 +1,1015 @@
+/* 
+   Estilo principal do MangaVerse.
+   Organizado em seções para facilitar a manutenção.
+   Se o layout parecer muito apertado,
+   aumentar o max-width do .container aos poucos
+   1. VARIÁVEIS E RESET
+/* Variáveis de cor — alterar aqui muda o tema do site inteiro */
+:root {
+    --fundo-principal:   #0d0d14;
+    --fundo-secundario:  #161622;
+    --fundo-card:        #1e1e2e;
+    --fundo-input:       #252535;
+    --roxo-principal:    #8A2BE2;
+    --roxo-neon:         #b026ff;
+    --roxo-suave:        #6a1fb5;
+    --acento:            #e040fb;
+    --branco:            #f0f0ff;
+    --cinza-claro:       #a0a0b8;
+    --cinza-escuro:      #555568;
+    --borda:             #2a2a3e;
+    --sombra:            0 4px 24px rgba(0,0,0,0.5);
+    --sombra-roxo:       0 0 20px rgba(138,43,226,0.35);
+    --raio:              12px;
+    --transicao:         0.3s ease;
+}
+
+/* Reset básico — remove margens e paddings padrão do navegador */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Scroll suave ao clicar em âncoras */
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--fundo-principal);
+    color: var(--branco);
+    min-height: 100vh;
+    /* Efeito de fade ao carregar — o JavaScript ativa a classe "carregado" */
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(138,43,226,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(176,38,255,0.04) 0%, transparent 60%);
+}
+
+body.carregado {
+    opacity: 1;
+}
+
+a {
+    color: var(--cinza-claro);
+    text-decoration: none;
+    transition: color var(--transicao);
+}
+
+a:hover {
+    color: var(--roxo-neon);
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* 
+   2. UTILITÁRIOS
+/* Container centralizado — largura máxima do conteúdo */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Títulos de seção padrão */
+.titulo-secao {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.titulo-secao::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(to right, var(--roxo-principal), transparent);
+    margin-left: 12px;
+}
+
+/* Texto em roxo — usado para destaque */
+.texto-roxo {
+    color: var(--roxo-neon);
+}
+
+/* Mensagens de feedback (sucesso, erro) */
+.mensagem {
+    padding: 14px 20px;
+    border-radius: var(--raio);
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.mensagem-erro {
+    background: rgba(220, 53, 69, 0.15);
+    border: 1px solid rgba(220, 53, 69, 0.4);
+    color: #ff6b7a;
+}
+
+.mensagem-sucesso {
+    background: rgba(40, 167, 69, 0.15);
+    border: 1px solid rgba(40, 167, 69, 0.4);
+    color: #6bff8e;
+}
+
+/*
+   3. NAVBAR
+*/
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(13, 13, 20, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--borda);
+    padding: 14px 0;
+    transition: background var(--transicao);
+}
+
+.navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--branco) !important;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+.logo-icone {
+    font-size: 1.6rem;
+}
+
+.logo-texto {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.4rem;
+    background: linear-gradient(135deg, var(--branco), var(--roxo-neon));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Menu de navegação */
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.menu a {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--cinza-claro);
+    transition: all var(--transicao);
+}
+
+.menu a:hover {
+    color: var(--branco);
+    background: rgba(138, 43, 226, 0.15);
+}
+
+/* Botão destaque no menu */
+.btn-nav {
+    border: 1px solid var(--borda);
+}
+
+.btn-destaque {
+    background: var(--roxo-principal) !important;
+    color: var(--branco) !important;
+    border-color: var(--roxo-principal) !important;
+}
+
+.btn-destaque:hover {
+    background: var(--roxo-neon) !important;
+    box-shadow: var(--sombra-roxo);
+}
+
+/* Espaço para o conteúdo não ficar atrás da navbar */
+.espaco-navbar {
+    height: 72px;
+}
+
+/* Botão menu mobile — três linhas */
+.btn-menu-mobile {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.btn-menu-mobile span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--branco);
+    border-radius: 2px;
+    transition: all var(--transicao);
+}
+
+/*
+   4. BOTÕES
+*/
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: var(--raio);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+    transition: all var(--transicao);
+    text-decoration: none;
+}
+
+.btn-primario {
+    background: linear-gradient(135deg, var(--roxo-principal), var(--roxo-neon));
+    color: var(--branco);
+    box-shadow: 0 4px 15px rgba(138,43,226,0.4);
+}
+
+.btn-primario:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(138,43,226,0.6);
+    color: var(--branco);
+}
+
+.btn-secundario {
+    background: transparent;
+    color: var(--cinza-claro);
+    border: 1px solid var(--borda);
+}
+
+.btn-secundario:hover {
+    border-color: var(--roxo-principal);
+    color: var(--branco);
+    background: rgba(138,43,226,0.1);
+}
+
+.btn-perigo {
+    background: rgba(220, 53, 69, 0.15);
+    color: #ff6b7a;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.btn-perigo:hover {
+    background: rgba(220, 53, 69, 0.3);
+    transform: translateY(-1px);
+}
+
+/*
+   5. CARDS DE MANGÁ
+    */
+
+/* Grade de cards */
+.grade-mangas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+/* Card individual */
+/* Esse efeito deixa os cards mais vivos.
+   Não é obrigatório para o sistema funcionar,
+   serve apenas para melhorar a aparência. */
+.card-manga {
+    background: var(--fundo-card);
+    border-radius: var(--raio);
+    border: 1px solid var(--borda);
+    overflow: hidden;
+    transition: transform var(--transicao), box-shadow var(--transicao), border-color var(--transicao);
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--branco);
+    display: block;
+}
+
+.card-manga:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--sombra-roxo);
+    border-color: var(--roxo-principal);
+    color: var(--branco);
+}
+
+/* Imagem de capa do card */
+.card-capa {
+    position: relative;
+    padding-top: 140%; /* Proporção 2:3 — padrão para capas de mangá */
+    overflow: hidden;
+    background: var(--fundo-input);
+}
+
+.card-capa img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.card-manga:hover .card-capa img {
+    transform: scale(1.08);
+}
+
+/* Placeholder quando não tem imagem */
+.capa-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    background: linear-gradient(135deg, var(--fundo-input), var(--fundo-card));
+    color: var(--cinza-escuro);
+}
+
+/* Tag de gênero no card */
+.card-genero {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(138,43,226,0.85);
+    backdrop-filter: blur(4px);
+    color: var(--branco);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Informações abaixo da capa */
+.card-info {
+    padding: 14px;
+}
+
+.card-titulo {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 4px;
+
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-autor {
+    font-size: 0.78rem;
+    color: var(--cinza-claro);
+}
+
+/* 
+   6. BANNER / HERO
+  */
+
+.banner {
+    position: relative;
+    background: linear-gradient(135deg, #0d0d14 0%, #1a0a2e 50%, #0d0d14 100%);
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden;
+    margin-bottom: 60px;
+}
+
+/* Efeito decorativo de fundo no banner */
+.banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 30% 50%, rgba(138,43,226,0.2) 0%, transparent 50%),
+        radial-gradient(circle at 70% 50%, rgba(176,38,255,0.15) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.banner-conteudo {
+    position: relative;
+    z-index: 1;
+}
+
+.banner h1 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--branco) 0%, var(--roxo-neon) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.banner p {
+    font-size: 1.1rem;
+    color: var(--cinza-claro);
+    max-width: 600px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+}
+
+.banner-botoes {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/*
+   7. SEÇÕES DA HOME
+ */
+
+.secao {
+    padding: 40px 0;
+}
+
+/*
+   8. FORMULÁRIOS (Login, Cadastro, Busca)
+*/
+
+.pagina-form {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.caixa-form {
+    background: var(--fundo-card);
+    border: 1px solid var(--borda);
+    border-radius: 20px;
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: var(--sombra);
+}
+
+.form-titulo {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.form-subtitulo {
+    color: var(--cinza-claro);
+    text-align: center;
+    margin-bottom: 32px;
+    font-size: 0.9rem;
+}
+
+.form-grupo {
+    margin-bottom: 20px;
+}
+
+.form-grupo label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--cinza-claro);
+}
+
+.form-grupo input,
+.form-grupo select,
+.form-grupo textarea {
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--fundo-input);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    color: var(--branco);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color var(--transicao), box-shadow var(--transicao);
+    outline: none;
+}
+
+.form-grupo input:focus,
+.form-grupo select:focus,
+.form-grupo textarea:focus {
+    border-color: var(--roxo-principal);
+    box-shadow: 0 0 0 3px rgba(138,43,226,0.2);
+}
+
+.form-grupo input::placeholder {
+    color: var(--cinza-escuro);
+}
+
+.form-link {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 0.9rem;
+    color: var(--cinza-claro);
+}
+
+.form-link a {
+    color: var(--roxo-neon);
+    font-weight: 600;
+}
+
+/* 9. PÁGINA DE MANGA (manga.php)*/
+
+.manga-topo {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 40px;
+    padding: 40px 0;
+    align-items: start;
+}
+
+.manga-capa-grande {
+    border-radius: var(--raio);
+    overflow: hidden;
+    box-shadow: var(--sombra-roxo);
+    aspect-ratio: 2/3;
+}
+
+.manga-capa-grande img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.manga-info h1 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.manga-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 16px 0;
+}
+
+.tag {
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: rgba(138,43,226,0.2);
+    border: 1px solid rgba(138,43,226,0.4);
+    color: var(--roxo-neon);
+}
+
+.manga-descricao {
+    color: var(--cinza-claro);
+    line-height: 1.8;
+    margin: 20px 0;
+}
+
+/* Lista de capítulos */
+.lista-capitulos {
+    margin-top: 40px;
+}
+
+.capitulo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: var(--fundo-card);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    margin-bottom: 10px;
+    transition: all var(--transicao);
+    text-decoration: none;
+    color: var(--branco);
+}
+
+.capitulo-item:hover {
+    border-color: var(--roxo-principal);
+    background: rgba(138,43,226,0.08);
+    transform: translateX(4px);
+    color: var(--branco);
+}
+
+.capitulo-numero {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--roxo-neon);
+    min-width: 80px;
+}
+
+.capitulo-titulo {
+    flex: 1;
+    font-size: 0.95rem;
+}
+
+/*
+   10. PÁGINA DE LEITURA (capitulo.php)
+    */
+
+.leitor {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.leitor-titulo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.leitor-titulo h2 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.8rem;
+    color: var(--roxo-neon);
+}
+
+.leitor-imagens img {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.leitor-navegacao {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 30px 0;
+}
+
+/*  
+   11. PÁGINA DE FAVORITOS E PERFIL
+     */
+
+.perfil-card {
+    background: var(--fundo-card);
+    border: 1px solid var(--borda);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 600px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.perfil-avatar {
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg, var(--roxo-principal), var(--roxo-neon));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 20px;
+}
+
+.perfil-nome {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.perfil-usuario {
+    color: var(--roxo-neon);
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+}
+
+.perfil-stats {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    background: var(--fundo-input);
+    padding: 16px 28px;
+    border-radius: var(--raio);
+    border: 1px solid var(--borda);
+}
+
+.stat-numero {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--roxo-neon);
+    display: block;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--cinza-claro);
+}
+
+/*  
+   12. BUSCA
+     */
+
+.barra-busca {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.barra-busca input,
+.barra-busca select {
+    flex: 1;
+    min-width: 200px;
+    padding: 14px 18px;
+    background: var(--fundo-card);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    color: var(--branco);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color var(--transicao);
+}
+
+.barra-busca input:focus,
+.barra-busca select:focus {
+    border-color: var(--roxo-principal);
+}
+
+.barra-busca input::placeholder {
+    color: var(--cinza-escuro);
+}
+
+/*  
+   13. GÊNEROS
+     */
+
+.grade-generos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.card-genero-item {
+    background: var(--fundo-card);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    padding: 24px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transicao);
+    text-decoration: none;
+    color: var(--branco);
+    display: block;
+}
+
+.card-genero-item:hover {
+    border-color: var(--roxo-principal);
+    background: rgba(138,43,226,0.1);
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-roxo);
+    color: var(--branco);
+}
+
+.genero-icone {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.genero-nome {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+/*  
+   14. RODAPÉ
+     */
+
+.rodape {
+    background: var(--fundo-secundario);
+    border-top: 1px solid var(--borda);
+    padding: 60px 0 30px;
+    margin-top: 80px;
+}
+
+.rodape-grade {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.rodape-coluna h4 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    color: var(--branco);
+    margin-bottom: 16px;
+}
+
+.rodape-coluna p {
+    color: var(--cinza-claro);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.rodape-coluna ul li {
+    margin-bottom: 8px;
+}
+
+.rodape-coluna ul li a {
+    color: var(--cinza-claro);
+    font-size: 0.9rem;
+    transition: color var(--transicao);
+}
+
+.rodape-coluna ul li a:hover {
+    color: var(--roxo-neon);
+}
+
+.rodape-base {
+    border-top: 1px solid var(--borda);
+    padding-top: 24px;
+    text-align: center;
+    color: var(--cinza-escuro);
+    font-size: 0.85rem;
+}
+
+/*  
+   15. BOTÃO VOLTAR AO TOPO
+     */
+
+/* O JavaScript em script.js controla quando ele aparece */
+.btn-topo {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--roxo-principal), var(--roxo-neon));
+    color: var(--branco);
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(138,43,226,0.5);
+    transition: all var(--transicao);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.btn-topo.visivel {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.btn-topo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(138,43,226,0.7);
+}
+
+/*  
+   16. ESTADOS VAZIOS
+     */
+
+.estado-vazio {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.estado-vazio-icone {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.estado-vazio h3 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+}
+
+.estado-vazio p {
+    color: var(--cinza-claro);
+    margin-bottom: 24px;
+}
+
+/*  
+   17. RESPONSIVIDADE MOBILE
+    SS */
+
+@media (max-width: 768px) {
+
+    /* Mostrar botão de menu no mobile */
+    .btn-menu-mobile {
+        display: flex;
+    }
+
+    /* Esconder menu e mostrar só quando aberto */
+    .menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(13,13,20,0.97);
+        backdrop-filter: blur(16px);
+        padding: 20px;
+        gap: 8px;
+        border-bottom: 1px solid var(--borda);
+    }
+
+    /* Classe adicionada pelo JavaScript quando o menu está aberto */
+    .menu.aberto {
+        display: flex;
+    }
+
+    .menu a {
+        padding: 12px 16px;
+        border-radius: 10px;
+    }
+
+    .banner {
+        padding: 50px 0;
+    }
+
+    .manga-topo {
+        grid-template-columns: 1fr;
+    }
+
+    .manga-capa-grande {
+        max-width: 260px;
+        margin: 0 auto;
+    }
+
+    .rodape-grade {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .grade-mangas {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 14px;
+    }
+
+    .caixa-form {
+        padding: 32px 24px;
+    }
+
+    .leitor-navegacao {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .grade-mangas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grade-generos {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

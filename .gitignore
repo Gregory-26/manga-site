@@ -1,0 +1,8 @@
+# Arquivo de configuração do banco (tem senha! nunca suba)
+includes/conexao.php
+
+# Pastas do sistema que não precisam ir pro GitHub
+.DS_Store
+Thumbs.db
+*.log
+/vendor/
